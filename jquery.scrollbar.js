@@ -162,7 +162,13 @@
             // do not init if in ignorable browser
             if ((browser.mobile && o.ignoreMobile)
                 || (browser.overlay && o.ignoreOverlay)
-                || (browser.macosx && !browser.webkit) // still required to ignore nonWebKit browsers on Mac
+                // NOTE: Not ignoring FireFox on OS X / macOS.
+                // From https://github.com/gromo/jquery.scrollbar:
+                // "There is known issue that native browser scrollbar cannot be hidden in
+                // Firefox on Apple devices, so this plugin is not initialized and you will
+                // see native scrollbars."
+                // Except, this seems to be no longer the case (in FireFox 54.0).
+                // || (browser.macosx && !browser.webkit) // still required to ignore nonWebKit browsers on Mac
                 ) {
                 if ($.isFunction(o.onFallback)) {
                     o.onFallback.apply(this, [c]);
